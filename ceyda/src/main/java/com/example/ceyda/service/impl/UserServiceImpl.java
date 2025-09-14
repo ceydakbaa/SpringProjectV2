@@ -3,6 +3,7 @@ package com.example.ceyda.service.impl;
 
 
 import com.example.ceyda.entity.User;
+import com.example.ceyda.exception.UserNotFoundException;
 import com.example.ceyda.repository.UserRepository;
 import com.example.ceyda.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,10 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("ID " + id + " için kullanıcı bulunamadı!"));
+    }
 
 
 }
